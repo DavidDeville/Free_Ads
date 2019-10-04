@@ -28,7 +28,7 @@
                             <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('Prénom') }}</label>
                             
                             <div class="col-md-6">
-                                <input id="lastname" type="lastname" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $user_info->lastname }}" required autocomplete="lastname" autofocus>
+                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $user_info->lastname }}" required autocomplete="lastname" autofocus>
 
                                 @error('lastname')
                                     <span class="invalid-feedback" role="alert">
@@ -58,14 +58,18 @@
                             <div class="col-md-6">
                             <textarea id="password" type="password" class="form-control @error('password') is-invalid @enderror password" name="password">{{ $user_info->password }}</textarea>
                             </div>
+                        </div><br>
+                        
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
                         </div>
-
-
-                        @if(isset($success))
-                            <div class="text-center" role="alert">
-                                <strong>{{ $success }}</strong>
-                            </div>
-                            <br>
                         @endif
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">

@@ -22,6 +22,6 @@ class Annonces extends Model
 
     public function images()
     {
-        return $this->hasMany('App\Images');
+        return $this->hasMany('App\Images', 'annonce_id');
     }
 }

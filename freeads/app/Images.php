@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Annonces extends Model
+class Images extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,11 +12,11 @@ class Annonces extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'price', 'user_id',
+        'annonce_id', 'images',
     ];
 
     public function annonces()
     {
-        return $this->belongsTo('App\Images');
+        return $this->belongsTo('App\Annonces', 'annonce_id');
     }
 }

@@ -50,8 +50,12 @@ class UserController extends Controller
     {
         $user_info = Auth::user()->find($id);
         $connected_user_id = Auth::user()->id;
-        //dd($user_info->password);
-        return view('/user/read', ['user_info' => $user_info, 'user_id' => $id, 'connected_user_id' => $connected_user_id]);
+        if($user_info == false) {
+            abort(404);
+        }
+        else {
+            return view('/user/read', ['user_info' => $user_info, 'user_id' => $id, 'connected_user_id' => $connected_user_id]);
+        }
     }
 
     /**
@@ -86,7 +90,7 @@ class UserController extends Controller
         ]);
         $data['password'] = Hash::make($data['password']);
         User::where('id', $user_info->id)->update($data);
-        return view('/user/edit', ['success' => 'données modifiées', 'user_info' => $user_info, 'connected_user_id' => $connected_user_id]);
+        return view('/user/edit', ['success' => 'Vos données ont été modifiées', 'user_info' => $user_info, 'connected_user_id' => $connected_user_id]);
     }
 
     /**

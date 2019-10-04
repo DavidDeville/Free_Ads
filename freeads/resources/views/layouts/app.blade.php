@@ -67,6 +67,9 @@
                                     <a class="dropdown-item" href="{{ route('annonce')}}">
                                             {{ __('Publier une annonce') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('display_annonces')}}">
+                                        {{ __('Voir les annonces') }}
+                                    </a>
                                     @endif
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
