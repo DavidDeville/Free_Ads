@@ -32,6 +32,7 @@
             </div>
             <br><br>
             @endforeach
+            {{$annonces->links()}}
         </div>
     </div>
 </div>

@@ -35,13 +35,8 @@ class AnnoncesController extends Controller
      */
     public function display_annonces()
     {
-        $annonces = Annonces::get();
-        // foreach($annonces as $annonce) {
-        //     dd($annonce->users);
-        // }
-        //dd($annonces->users);
+        $annonces = Annonces::paginate(5);
         $user_info = Auth::user()->id;
-        //dd($user_info);
         return view('/annonces/read', ['annonces' => $annonces, 'connected_user_id' => $user_info]); 
     }
 
@@ -107,11 +102,9 @@ class AnnoncesController extends Controller
             $annonce->save();
             if($request->hasFile('images')) {
                 foreach($request->file('images') as $file) {
-                    $filename = $file->getClientOriginalName();
                     $extension = $file->getClientOriginalExtension();
                     $fileName = str_random(5)."-".date('his')."-".str_random(3).".".$extension;
                     $destinationPath = 'public/storage'.'/';
-                    $fileNameWithExtension = $file->getClientOriginalName();
                     $path = base_path() . "/public/storage/";
                     $file->move($path, $fileName);
                     $images::create([
@@ -171,10 +164,6 @@ class AnnoncesController extends Controller
     {
         $annonce_info = Annonces::find($id);
         $connected_user_id = Auth::user()->id;
-        // foreach($annonce_info->images as $image) {
-        //     $user_image = url('/storage') . '/' . $image->images;
-        //     dd($user_image);
-        // }
         if(auth()->user()) {
             $data = $request->validate([
                 'title' => 'string|max:255',
@@ -194,7 +183,6 @@ class AnnoncesController extends Controller
                     }
                 }
                 foreach($request->file('images') as $file) {
-                    $filename = $file->getClientOriginalName();
                     $extension = $file->getClientOriginalExtension();
                     $fileName = str_random(5)."-".date('his')."-".str_random(3).".".$extension;
                     $destinationPath = 'public/storage'.'/';
@@ -211,7 +199,6 @@ class AnnoncesController extends Controller
         else {
             abort(404);
         }
-        //return view('/user/edit', ['success' => 'Vos données ont été modifiées', 'user_info' => $user_info, 'connected_user_id' => $connected_user_id]);
     }
 
     /**
@@ -224,9 +211,6 @@ class AnnoncesController extends Controller
     {
         Images::where('annonce_id', $id)->delete();
         Annonces::where('id', $id)->delete();
-        // Auth::User()->Images()->delete();
-        // Auth::User()->Annonces()->delete();
-        // return Redirect::to('/register');
         $user_info = Auth::user();
         if(isset($user_info)) {
             return view('/annonces/new', ['user_info' => $user_info, 'connected_user_id' => $user_info->id ]);
