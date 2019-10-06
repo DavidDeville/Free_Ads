@@ -125,14 +125,46 @@ class AnnoncesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Basic search by titles.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function search_title(Request $request, Annonces $annonce)
     {
-        //
+        $query = $request->input('title');
+        $annonces = Annonces::where('title', 'like', '%' . $query . '%')->get();
+        if($annonces->isEmpty()) {
+            return redirect('annonces/search')->with('status', 'Aucun résultat trouvé !');
+        } else {
+            return view('annonces/search', ['annonces' => $annonces]);
+        }
+    }
+
+    /**
+     * Basic search by dates.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search_date(Request $request, Annonces $annonce)
+    {
+        $query = $request->input('order');
+        $annonces = Annonces::orderBy('created_at', $query)->get();
+        return view('annonces/search_date', ['annonces' => $annonces]);
+    }
+
+    /**
+     * Basic search by prices.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search_price(Request $request, Annonces $annonce)
+    {
+        $query = $request->input('price');
+        $annonces = Annonces::orderBy('price', $query)->get();
+        return view('annonces/search_price', ['annonces' => $annonces]);
     }
 
     /**

@@ -32,6 +32,35 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @if(auth()->user())
+                    <form id="search_title-form" action="{{ route('search_by_title') }}" method="post">
+                        @csrf
+                        <input type="text" name="title" placeholder="Recherche par titre">
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+    
+                    <form id="search_date-form" action="{{ route('search_by_date') }}" method="post">
+                            @csrf
+                            <label for="date-select">Par date:</label>
+                            <select name="order" id="order-select">
+                                <option value="">--Choisissez votre tri--</option>
+                                <option value="asc">Croissant</option>
+                                <option value="desc">Décroissant</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+
+                    <form id="search_price-form" action="{{ route('search_by_price') }}" method="post">
+                            @csrf
+                            <label for="price-select">Par prix:</label>
+                            <select name="price" id="order-select">
+                                <option value="">--Choisissez votre tri--</option>
+                                <option value="asc">Croissant</option>
+                                <option value="desc">Décroissant</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                    @endif
                     <ul class="navbar-nav mr-auto">
 
                     </ul>

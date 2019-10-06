@@ -90,7 +90,7 @@ class UserController extends Controller
         ]);
         $data['password'] = Hash::make($data['password']);
         User::where('id', $user_info->id)->update($data);
-        return view('/user/edit', ['success' => 'Vos données ont été modifiées', 'user_info' => $user_info, 'connected_user_id' => $connected_user_id]);
+        return redirect('/' . 'user/' . $user_info->id . '/edit')->with('status', 'Votre profil a bien été mise à jour');
     }
 
     /**

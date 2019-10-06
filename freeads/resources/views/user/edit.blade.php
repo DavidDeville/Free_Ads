@@ -56,7 +56,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                            <textarea id="password" type="password" class="form-control @error('password') is-invalid @enderror password" name="password">{{ $user_info->password }}</textarea>
+                            <textarea id="password" type="password" class="form-control @error('password') is-invalid @enderror password" name="password"></textarea>
                             </div>
                         </div><br>
                         

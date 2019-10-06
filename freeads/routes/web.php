@@ -40,3 +40,9 @@ Route::get('/annonces/{id}/edit', 'AnnoncesController@display_annonce_edit')->na
 Route::post('/annonces/{id}/edit', 'AnnoncesController@update_annonce')->name('annonce_edit');
 
 Route::post('/annonces/{id}/delete', 'AnnoncesController@destroy')->name('delete_single_annonce');
+
+Route::post('/annonces/search', 'AnnoncesController@search_title')->name('search_by_title');
+
+Route::post('/annonces/search_date', 'AnnoncesController@search_date')->name('search_by_date');
+
+Route::post('/annonces/search_price', 'AnnoncesController@search_price')->name('search_by_price');
