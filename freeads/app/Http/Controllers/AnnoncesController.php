@@ -35,9 +35,13 @@ class AnnoncesController extends Controller
      */
     public function display_annonces()
     {
-        $annonces = Annonces::paginate(5);
-        $user_info = Auth::user()->id;
-        return view('/annonces/read', ['annonces' => $annonces, 'connected_user_id' => $user_info]); 
+        if(auth()->user()) {
+            $annonces = Annonces::paginate(5);
+            $user_info = Auth::user()->id;
+            return view('/annonces/read', ['annonces' => $annonces, 'connected_user_id' => $user_info]);
+        } else {
+            abort(404);
+        }
     }
 
     /**

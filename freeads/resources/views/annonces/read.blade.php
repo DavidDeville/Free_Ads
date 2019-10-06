@@ -32,7 +32,7 @@
             </div>
             <br><br>
             @endforeach
-            {{$annonces->links()}}
+            {{ $annonces->links() }}
         </div>
     </div>
 </div>
